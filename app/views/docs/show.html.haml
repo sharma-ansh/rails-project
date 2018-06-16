@@ -1,2 +1,4 @@
 %h1= @doc.title
 %p= @doc.content
+= link_to 'Edit', edit_doc_path(@doc)
+= link_to 'Destroy', doc_path(@doc), method: :delete, data: {confirm: "Are you sure?"}

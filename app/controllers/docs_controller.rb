@@ -1,5 +1,5 @@
 class DocsController < ApplicationController
-  before_action :find_doc, only: [:show, :edit, :update, :delete]
+  before_action :find_doc, only: [:show, :edit, :update, :destroy]
 
   def index
     @docs = Doc.all
@@ -16,6 +16,7 @@ class DocsController < ApplicationController
   def create
     @doc = Doc.new(doc_params)
     if @doc.save
+      # show path
       redirect_to doc_path(@doc)
     else
       render 'new'
@@ -27,9 +28,16 @@ class DocsController < ApplicationController
   end
 
   def update
+    if @doc.update_attributes(doc_params)
+      redirect_to doc_path(@doc)
+    else
+      render 'edit'
+    end
   end
 
   def destroy
+    @doc.destroy
+    redirect_to docs_path
   end
 
   private
